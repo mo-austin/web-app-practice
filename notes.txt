@@ -1,0 +1,2 @@
+To activate venv:
+source /Users/austin/Desktop/3240/django-mo-austin-1/django-mo-austin/mysite/.venv/bin/activate
