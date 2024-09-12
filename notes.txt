@@ -1,2 +1,5 @@
 To activate venv:
 source /Users/austin/Desktop/3240/django-mo-austin-1/django-mo-austin/mysite/.venv/bin/activate
+
+To find django source files:
+python -c "import django; print(django.__path__)"
