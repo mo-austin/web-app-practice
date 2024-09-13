@@ -1,9 +1,12 @@
 from django.db.models import F
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+
+from .models import Question
+from .forms import QuestionForm, ChoiceFormSet
 
 
 from .models import Choice, Question
@@ -67,3 +70,31 @@ def index(request):
         "latest_question_list": latest_question_list,
     }
     return render(request, "polls/index.html", context)
+
+
+
+def add_question(request):
+    if request.method == 'POST':
+        question_form = QuestionForm(request.POST)
+        formset = ChoiceFormSet(request.POST)
+
+        if question_form.is_valid() and formset.is_valid():
+            # Don't save the question yet, add pub_date first
+            question = question_form.save(commit=False)
+            question.pub_date = timezone.now()  # Set the current time for pub_date
+            question.save()  # Now save the question with pub_date
+
+            # save the choices, linking them to the question
+            formset.instance = question
+            formset.save()
+
+            return redirect('polls:index')  # Redirect to index after saving
+
+    else:
+        question_form = QuestionForm()
+        formset = ChoiceFormSet()
+
+    return render(request, 'polls/add_question.html', {
+        'question_form': question_form,
+        'formset': formset
+    })
