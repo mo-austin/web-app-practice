@@ -1,6 +1,8 @@
 {% extends 'polls/_base_page.html' %}
-
+{% load static %} 
 {% block title %}Poll List{% endblock %}
+
+
 
 {% block content %}
 <div class="container">
@@ -22,7 +24,7 @@
     <!-- Polls List Section -->
     <div class="row">
         <div class="col">
-            <div class="list-group">
+            <div class="list-group mb-4">
                 {% for question in latest_question_list %}
                     <a href="{% url 'polls:detail' question.id %}" class="list-group-item list-group-item-action">
                         <h5 class="mb-1">{{ question.question_text }}</h5>
@@ -36,21 +38,40 @@
             </div>
         </div>
     </div>
-    <style>
-        .btn-nature {
-            background-color: #4CAF50;
-            color: white; 
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-    
-        .btn-nature:hover {
-            background-color: #45a049;
-        }
-    </style>
+ 
+    <!-- Image Section -->
+    <div class="row">
+        <div class="col text-center">
+            <img src="{% static 'polls/images/jaz.png' %}" class="img-cropped mt-4" alt="Cat">
+        </div>
+    </div>
+
 
 </div>
+
+<style>
+    .btn-nature {
+        background-color: #4CAF50;
+        color: white; 
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-nature:hover {
+        background-color: #45a049;
+    }
+    .img-cropped {
+    width: 75%; 
+    height: 50%;
+    object-fit: cover; 
+    overflow: hidden; 
+    border-radius: 10px; 
+    }
+</style>
+
 {% endblock %}
+
+
