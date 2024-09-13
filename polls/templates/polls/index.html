@@ -1,11 +1,56 @@
-<h1>Polls</h1>
+{% extends 'polls/_base_page.html' %}
 
-<ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% empty %}
-        <li>No polls are available.</li>
-    {% endfor %}
-</ul>
+{% block title %}Poll List{% endblock %}
 
-<a href="{% url 'polls:add_question' %}">Add a new question</a>
+{% block content %}
+<div class="container">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="text-center">Welcome to my Polls App!</h1>
+            <p class="lead text-center">Cast your vote in a variety of polls below or add a new question!</p>
+        </div>
+    </div>
+
+    <!-- Add Question Button -->
+    <div class="row mb-4">
+        <div class="col text-center">
+            <a href="{% url 'polls:add_question' %}" class="btn btn-nature">Add New Question</a>
+        </div>
+    </div>
+
+    <!-- Polls List Section -->
+    <div class="row">
+        <div class="col">
+            <div class="list-group">
+                {% for question in latest_question_list %}
+                    <a href="{% url 'polls:detail' question.id %}" class="list-group-item list-group-item-action">
+                        <h5 class="mb-1">{{ question.question_text }}</h5>
+                        <small class="text-muted">Published on {{ question.pub_date }}</small>
+                    </a>
+                {% empty %}
+                    <div class="alert alert-info" role="alert">
+                        No polls are available. Why not <a href="{% url 'polls:add_question' %}" class="alert-link">add a new question?</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <style>
+        .btn-nature {
+            background-color: #4CAF50;
+            color: white; 
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .btn-nature:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</div>
+{% endblock %}

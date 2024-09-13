@@ -1,14 +1,52 @@
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>{{ question.question_text }}</h1></legend>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        {% for choice in question.choice_set.all %}
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor %}
-    </fieldset>
-    <input type="submit" value="Vote">
-    </form>
+{% extends 'polls/_base_page.html' %}
 
-    {% include 'polls/_back_to_polls.html' %}
+{% block content %}
+<div class="container my-4">
+    <form action="{% url 'polls:vote' question.id %}" method="post" class="p-4 border rounded shadow-sm bg-light">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1 class="text-center">{{ question.question_text }}</h1></legend>
+            
+            <!-- Error Message -->
+            {% if error_message %}
+                <p class="text-danger text-center"><strong>{{ error_message }}</strong></p>
+            {% endif %}
+            
+
+            <div class="form-group">
+                {% for choice in question.choice_set.all %}
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                        <label class="form-check-label" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </fieldset>
+        
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-nature">Vote</button>
+        </div>
+    </form>
+    <style>
+        .btn-nature {
+            background-color: #4CAF50;
+            color: white; 
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .btn-nature:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <!-- Back to Polls Link -->
+    <div class="text-center mt-3">
+        {% include 'polls/_back_to_polls.html' %}
+    </div>
+</div>
+{% endblock %}

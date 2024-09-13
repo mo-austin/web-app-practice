@@ -1,4 +1,4 @@
-#!/Users/austin/Desktop/3240/django-mo-austin-1/django-mo-austin/mysite/.venv/bin/python
+#!/Users/austin/Desktop/3240/django-mo-austin-1/django-mo-austin/mysite/.venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,16 +1,31 @@
-<h1>Add a New Question</h1>
+{% extends 'polls/_base_page.html' %}
+{% load bootstrap5 %}
+
+{% block title %}Add a New Question{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Add a New Question</h1>
 
 <form method="post">
     {% csrf_token %}
-    {{ question_form.as_p }} <!-- Renders the question form -->
+    <div class="mb-3">
+        {{ question_form.question_text.label_tag }}
+        {{ question_form.question_text }}
+    </div>
 
     <h2>Choices</h2>
-    {{ formset.management_form }}
-    {% for form in formset %}
-        {{ form.as_p }}
-    {% endfor %}
+    <div class="mb-3">
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="mb-3">
+                {{ form.choice_text.label_tag }}
+                {{ form.choice_text }}
+            </div>
+        {% endfor %}
+    </div>
 
-    <button type="submit">Add Question</button>
+    <button type="submit" class="btn btn-nature">Add Question</button> 
 </form>
 
-{% include 'polls/_back_to_polls.html' %}
+
+{% endblock %}

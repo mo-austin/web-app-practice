@@ -1,11 +1,28 @@
-<h1>{{ question.question_text }}</h1>
+{% extends 'polls/_base_page.html' %}
 
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+{% block content %}
+<div class="container my-4">
+    <!-- Question Header -->
+    <h1 class="text-center mb-4">{{ question.question_text }}</h1>
+    
+    <!-- Choices and Votes List -->
+    <ul class="list-group mb-4">
+        {% for choice in question.choice_set.all %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ choice.choice_text }}
+                <span class="badge bg-primary rounded-pill">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <!-- "Vote Again?" Button -->
+    <div class="text-center mb-4">
+        <a href="{% url 'polls:detail' question.id %}" class="btn btn-nature">Vote Again?</a>
+    </div>
 
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
-
-{% include 'polls/_back_to_polls.html' %}
+    <!-- Back to Polls Button -->
+    <div class="text-center">
+        {% include 'polls/_back_to_polls.html' %}
+    </div>
+</div>
+{% endblock %}

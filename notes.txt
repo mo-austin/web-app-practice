@@ -3,3 +3,6 @@ source /Users/austin/Desktop/3240/django-mo-austin-1/django-mo-austin/mysite/.ve
 
 To find django source files:
 python -c "import django; print(django.__path__)"
+
+To list ports in use:
+lsof -i :8000
